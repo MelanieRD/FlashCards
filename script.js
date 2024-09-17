@@ -4,7 +4,7 @@
     LOS PRINCIPIOS DE PEOGRAMACION Y BUENAS PRACTICAS, PARA ESO 
     ESTAMOS APRENDIENDO. GRACIAS!
 
-    me servira esto de recuerdo jajajaj
+    me servira esto de recuerdo jajajaj XD
 */
 
 
