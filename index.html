@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flash Cards By Mel</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a id="logo" href="#" onclick="reload()">Flash Cards</a>
+          </li>
+          <li>
+            <a href="#" id="Create" onclick="vistaCrearFlashcard()">Create</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div id="EstudiarFlashcard">
+        <div id="MenuFlashcards">
+          <ul>
+            <li>
+              <a href="#" onclick="PreguntaEstado(false)">No aprendida</a>
+            </li>
+            <li><a href="#" id="preguntasSeguimiento"></a></li>
+            <li><a href="#" id="Shuffle" onclick="Shuffle()">Shuffle</a></li>
+            <li><a href="#" onclick="PreguntaEstado(true)">Aprendida</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="cardContainerView"></div>
+
+      <div id="createContainerView">
+        <h1>Crear set de flashcartas</h1>
+        <form action="" method="post" method="post">
+          <fieldset id="presentacion">
+            <label for="tituloTxt"> Titulo Flashcard</label><br />
+            <input type="text" id="tituloTxt" maxlength="64" /><br /><br />
+
+            <label for="descripcionTxt" maxlength="100">Descripcion</label
+            ><br />
+            <input type="text" name="descripcionTxt" id="descripcionTxt" />
+            <br /><br />
+          </fieldset>
+
+          <fieldset id="preguntas">
+            <legend>Preguntas</legend>
+            <label for="preguntaTxt1"> Pregunta #1</label>
+            <input type="text" name="preguntaTxt1" id="preguntaTxt1" />
+            <br />
+            <label for="respuestaTxt1">Respuesta</label>
+            <textarea name="respuestaTxt1" id="respuestaTxt1"></textarea>
+            <br /><br />
+            <hr />
+            <br />
+            <label for="preguntaTxt2"> Pregunta #2</label>
+            <input type="text" name="preguntaTxt2" id="preguntaTxt2" />
+            <br />
+            <label for="respuestaTxt2">Respuesta</label>
+            <textarea name="respuestaTxt2" id="respuestaTxt2"></textarea>
+            <br /><br />
+            <hr />
+            <br />
+            <label for="preguntaTxt3"> Pregunta #3</label>
+            <input type="text" name="preguntaTxt3" id="preguntaTxt3" />
+            <br />
+            <label for="respuestaTxt3">Respuesta</label>
+            <textarea name="respuestaTxt3" id="respuestaTxt3"></textarea>
+            <br /><br />
+            <hr />
+            <br />
+          </fieldset>
+          <button type="button" id="addboton" onclick="agregarPregunta()">
+            Añadir otra pregunta
+          </button>
+          <br /><br />
+
+          <button type="button" id="addboton" onclick="guardarFlashcards()">
+            Guardar Flashcards
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

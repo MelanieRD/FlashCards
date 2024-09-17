@@ -1,0 +1,263 @@
+/*
+Colors palette
+#16423C
+#6A9C89
+#C4DAD2
+#E9EFEC
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+/* Header & menu nav */
+header {
+  height: auto;
+  width: auto;
+  padding: 3vw;
+  background-color: #6a9c89;
+}
+
+nav {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header li {
+  list-style: none;
+  width: auto;
+  height: auto;
+}
+
+header a {
+  float: right;
+  text-align: center;
+  font-size: 2vw;
+  margin-top: calc(-1.4vw);
+  text-decoration: none;
+
+  color: #e9efec;
+}
+
+header a#logo {
+  margin-top: calc(-2.5vw);
+  font-size: 4vw;
+  float: left;
+}
+
+/* Boton crear del menu */
+header a#Create {
+  border: 0.08vw solid #e9efec;
+  padding: 0.5vw;
+  border-radius: 2vw;
+}
+
+header a#Create:hover {
+  background-color: #2d736a;
+}
+
+/* Main */
+
+#main {
+  padding: 5vw;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #e9efec;
+}
+
+/* Tarjeta */
+/* Tarjeta */
+
+.createContainerView {
+  height: auto;
+}
+
+.card-wrapper {
+  display: inline-block;
+  width: 200px;
+  height: 150px;
+  transition: all 0.3s ease 0s; /*hace que cuando se achique o agrande tenga una animacion bien bonita*/
+  box-sizing: content-box;
+}
+.card-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0pc 0px 5px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.19);
+}
+
+.card-front,
+.card-back {
+  background-color: #ffffff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.card-front p,
+.card-back p {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80%;
+  margin: 2%;
+}
+
+.card-back {
+  transform: rotateX(180deg);
+}
+.card-wrapper:hover .card-body {
+  transform: rotateX(180deg);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.19);
+}
+
+/*Para la card grande del panel estudiar*/
+.card-wrapperEstudiar:hover .card-body {
+  transform: rotateX(180deg);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.19);
+}
+
+/* Formulario crear flashcard */
+
+#createContainerView {
+  display: none;
+  margin-top: 100px;
+  padding: 50px;
+  width: auto;
+  height: auto;
+  background-color: whitesmoke;
+}
+
+fieldset {
+  padding: 10px;
+}
+
+input[type="text"] {
+  width: 95%;
+  padding: 10px 10px;
+  margin: 10px;
+  box-sizing: border-box;
+
+  border: #2d736a solid 2px;
+  border-radius: 15px;
+}
+
+input[type="text"]:focus {
+  background-color: #eff8f4;
+}
+
+textarea {
+  box-sizing: border-box;
+  height: 100px;
+  padding: 10px 10px;
+  width: 100%;
+  border: #2d736a solid 2px;
+  border-radius: 15px;
+}
+
+/*Hice otra view que va encima de las demas, pero la pondre aqui ya que es la ultima que mostrare en realidad, esta view es para ESTUDIAR las flashcards*/
+
+/* para el view */
+.card-wrapperEstudiar {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5%;
+  width: 50%;
+  height: 80%;
+  transition: all 0.3s ease 0s; /*hace que cuando se achique o agrande tenga una animacion bien bonita*/
+  box-sizing: content-box;
+}
+
+#EstudiarFlashcard {
+  margin: auto;
+  display: none;
+  margin-bottom: 50px;
+  height: 450px;
+  /* background-color: #2d736a; */
+}
+
+#MenuFlashcards {
+  margin: auto;
+  width: 60%;
+
+  height: auto;
+  text-align: center;
+  /* background-color: #e64f14; */
+  /* overflow: hidden; */
+}
+
+#MenuFlashcards ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-basis: auto;
+}
+
+#MenuFlashcards li {
+  list-style: none;
+  padding: 1.5%;
+  /* background-color: #2b098a; */
+}
+
+#MenuFlashcards a {
+  background-color: #6a9c89;
+
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+/* Repeat view */
+
+#card-RepeatWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5%;
+  width: 50%;
+  height: 80%;
+  transition: all 0.3s ease 0s; /*hace que cuando se achique o agrande tenga una animacion bien bonita*/
+  box-sizing: content-box;
+}
+#card-Repeatbody {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0pc 0px 5px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.19);
+}
+
+#card-RepeatMenu {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+}
+
+#repetirTodas,
+#repetirNoConocidas {
+  display: inline-block;
+  margin: 5%;
+  margin-top: 20%;
+  padding: 2%;
+
+  width: 30%;
+  background-color: #42a89b;
+}
+
+#repetirTodas:hover {
+  background-color: #2d736a;
+}
+
+#repetirNoConocidas:hover {
+  background-color: #2d736a;
+}
