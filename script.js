@@ -1,3 +1,15 @@
+/* WAAAAAAAAARNING CODIGO ESPAGUETTI A CONTINUACION,
+    NO ME HAGO RESPONSABLE DE QUE SE TE SALGAN LOS OJOS,
+    LOS PROXIMOS SI LOS HARE DE MEJOR MANERA, E INTENTARE APLICAR
+    LOS PRINCIPIOS DE PEOGRAMACION Y BUENAS PRACTICAS, PARA ESO 
+    ESTAMOS APRENDIENDO. GRACIAS!
+
+    me servira esto de recuerdo jajajaj
+*/
+
+
+
+
 let flashcards = [];
 
 //obteniendo data de flashcards para colocarlas en mi web UwU OwO
