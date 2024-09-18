@@ -25,11 +25,17 @@
         <div id="MenuFlashcards">
           <ul>
             <li>
-              <a href="#" onclick="PreguntaEstado(false)">No aprendida</a>
+              <a href="#" id="noAprendida" onclick="PreguntaEstado(false)"
+                >No aprendida</a
+              >
             </li>
             <li><a href="#" id="preguntasSeguimiento"></a></li>
             <li><a href="#" id="Shuffle" onclick="Shuffle()">Shuffle</a></li>
-            <li><a href="#" onclick="PreguntaEstado(true)">Aprendida</a></li>
+            <li>
+              <a href="#" id="aprendida" onclick="PreguntaEstado(true)"
+                >Aprendida</a
+              >
+            </li>
           </ul>
         </div>
       </div>

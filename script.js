@@ -176,6 +176,11 @@ function mostrarPanelEstudiar(id) {
     document.getElementById("EstudiarSeccion").remove();
   }
 
+  if (!repetirPreguntasNoConocidas) {
+    document.getElementById("aprendida").innerText = "Aprendida";
+    document.getElementById("noAprendida").innerText = "No Aprendida";
+  }
+
   if (cardDataActual.id !== id) {
     contadorEnSerie = 0;
   }
@@ -298,12 +303,14 @@ function repetirTodas() {
   repetirPreguntasNoConocidas = false;
   preguntasConocidas = [];
   preguntasNoConocidas = [];
-  console.log("ID QUE SE LE PASA A LA VIEW: " + cardDataActual.id);
   mostrarPanelEstudiar(cardDataActual.id);
 }
 
 //Funcionalidad Repetir no conocidas
 function repetirNoConocidas() {
+  document.getElementById("noAprendida").innerText = "Anterior";
+  document.getElementById("aprendida").innerText = "Siguiente";
+
   if (preguntasNoConocidas.length) {
     contadorEnSerie = 0;
     console.log(preguntasNoConocidas);
