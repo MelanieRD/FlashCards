@@ -7,9 +7,6 @@
     me servira esto de recuerdo jajajaj XD
 */
 
-
-
-
 let flashcards = [];
 
 //obteniendo data de flashcards para colocarlas en mi web UwU OwO
@@ -168,11 +165,11 @@ const enviarDatos = (data) => {
 
 // Me falta hacer lo siguiente:
 // Funcionalidad suffle (Opcional, lo hare despues probablemente)
-// Funcionalidad de practicar las preguntas no conocidas
 
 let viewPanelEstudiar = false;
 let contadorEnSerie = 0;
 let cardDataActual = {}; // mi flashcard actual, hare que el panel de vista la devuelva, asi puedo acceder con facilidad.
+let repetirPreguntasNoConocidas = false;
 
 function mostrarPanelEstudiar(id) {
   if (document.getElementById("card-Repeatbody")) {
@@ -182,16 +179,34 @@ function mostrarPanelEstudiar(id) {
   if (cardDataActual.id !== id) {
     contadorEnSerie = 0;
   }
-  let cardData = flashcards.find((cardData) => cardData.id === id);
+
+  let cardData = [];
+  let pregunta = "";
+  let respuesta = "";
+  let cantidadPreguntas = 0;
+
+  if (repetirPreguntasNoConocidas) {
+    cardData = preguntasNoConocidas;
+    pregunta = cardData[contadorEnSerie].pregunta;
+    respuesta = cardData[contadorEnSerie].respuesta;
+    cantidadPreguntas = cardData.length;
+  } else {
+    cardData = flashcards.find((cardData) => cardData.id === id);
+    cardDataActual = cardData;
+    pregunta = cardData.preguntas[contadorEnSerie].pregunta;
+    respuesta = cardData.preguntas[contadorEnSerie].respuesta;
+    cantidadPreguntas = cardData.preguntas.length;
+  }
+
   let cardEstudiar = `<div class="card-wrapperEstudiar" id="EstudiarSeccion">
           <div class="card-body">
             <div class="card-front">
-              <p id="pregunta">${cardData.preguntas[contadorEnSerie].pregunta}</p>
+              <p id="pregunta">${pregunta}</p>
               <p></p>
             </div>
 
             <div class="card-back">
-              <p id="respuesta">${cardData.preguntas[contadorEnSerie].respuesta}</p>
+              <p id="respuesta">${respuesta}</p>
             </div>
           </div>
         </div>
@@ -203,18 +218,18 @@ function mostrarPanelEstudiar(id) {
       .insertAdjacentHTML("afterbegin", cardEstudiar);
     viewPanelEstudiar = true;
   } else if (viewPanelEstudiar) {
-    document.getElementById("pregunta").innerHTML =
-      cardData.preguntas[contadorEnSerie].pregunta;
-    document.getElementById("respuesta").innerHTML =
-      cardData.preguntas[contadorEnSerie].respuesta;
+    document.getElementById("pregunta").innerHTML = pregunta;
+
+    document.getElementById("respuesta").innerHTML = respuesta;
   }
 
   document.getElementById("preguntasSeguimiento").innerText = ` ${
     contadorEnSerie + 1
-  } / ${cardData.preguntas.length} `;
+  } / ${cantidadPreguntas} `;
 
   document.getElementById("EstudiarFlashcard").style.display = "block";
-  return (cardDataActual = cardData);
+
+  return cardDataActual;
 }
 
 // Funcionalidad del menu para reestudiar preguntas NoConocidas
@@ -237,7 +252,27 @@ let cardBottons = `
 
 // ARREGLAR QUE LA ULTIMA PREGUNTA NO SE GUARDA EN EL PUSH AL DARLE NO CONOCIDA
 function PreguntaEstado(estado) {
-  if (contadorEnSerie < cardDataActual.preguntas.length - 1) {
+  if (
+    repetirPreguntasNoConocidas &&
+    contadorEnSerie < preguntasNoConocidas.length
+  ) {
+    if (estado && contadorEnSerie < preguntasNoConocidas.length - 1) {
+      contadorEnSerie += 1;
+      mostrarPanelEstudiar(cardDataActual.id);
+    } else if (
+      !estado &&
+      contadorEnSerie > 0 &&
+      preguntasNoConocidas.length - 1
+    ) {
+      contadorEnSerie -= 1;
+      mostrarPanelEstudiar(cardDataActual.id);
+    } else {
+      cartasRepetidasLeidas();
+    }
+  } else if (
+    !repetirPreguntasNoConocidas &&
+    contadorEnSerie < cardDataActual.preguntas.length - 1
+  ) {
     if (estado) {
       preguntasConocidas.push(cardDataActual.preguntas[contadorEnSerie]);
     } else if (!estado) {
@@ -246,23 +281,37 @@ function PreguntaEstado(estado) {
     contadorEnSerie += 1;
     mostrarPanelEstudiar(cardDataActual.id);
   } else {
-    console.log("Se han leido todas las cartas");
-    console.log(preguntasNoConocidas);
-    document.getElementById("EstudiarSeccion").innerHTML = cardBottons;
-    viewPanelEstudiar = false;
+    cartasRepetidasLeidas();
   }
+}
+
+function cartasRepetidasLeidas() {
+  console.log("Se han leido todas las cartas");
+  console.log(preguntasNoConocidas);
+  document.getElementById("EstudiarSeccion").innerHTML = cardBottons;
+  viewPanelEstudiar = false;
 }
 
 //Funcionalidad Repetir Todas
 function repetirTodas() {
   contadorEnSerie = 0;
+  repetirPreguntasNoConocidas = false;
+  preguntasConocidas = [];
+  preguntasNoConocidas = [];
+  console.log("ID QUE SE LE PASA A LA VIEW: " + cardDataActual.id);
   mostrarPanelEstudiar(cardDataActual.id);
 }
 
 //Funcionalidad Repetir no conocidas
 function repetirNoConocidas() {
-  console.log(preguntasNoConocidas);
-  mostrarPanelEstudiar(cardDataActual.id);/
+  if (preguntasNoConocidas.length) {
+    contadorEnSerie = 0;
+    console.log(preguntasNoConocidas);
+    repetirPreguntasNoConocidas = true;
+    mostrarPanelEstudiar(cardDataActual.id);
+  }
+
+  console.log("Todas las preguntas son conocidas");
 }
 
 // refrescar la pagina al hacer click en el logo
