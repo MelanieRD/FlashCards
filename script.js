@@ -1,14 +1,11 @@
 /* WAAAAAAAAARNING CODIGO ESPAGUETTI A CONTINUACION,
     NO ME HAGO RESPONSABLE DE QUE SE TE SALGAN LOS OJOS,
     LOS PROXIMOS SI LOS HARE DE MEJOR MANERA, E INTENTARE APLICAR
-    LOS PRINCIPIOS DE PEOGRAMACION Y BUENAS PRACTICAS, PARA ESO 
+    LOS PRINCIPIOS DE PROGRAMACION Y BUENAS PRACTICAS, PARA ESO 
     ESTAMOS APRENDIENDO. GRACIAS!
 
-    me servira esto de recuerdo jajajaj
+    me servira esto de recuerdo jajajaj XD
 */
-
-
-
 
 let flashcards = [];
 
@@ -168,30 +165,53 @@ const enviarDatos = (data) => {
 
 // Me falta hacer lo siguiente:
 // Funcionalidad suffle (Opcional, lo hare despues probablemente)
-// Funcionalidad de practicar las preguntas no conocidas
 
 let viewPanelEstudiar = false;
 let contadorEnSerie = 0;
 let cardDataActual = {}; // mi flashcard actual, hare que el panel de vista la devuelva, asi puedo acceder con facilidad.
+let repetirPreguntasNoConocidas = false;
 
 function mostrarPanelEstudiar(id) {
   if (document.getElementById("card-Repeatbody")) {
     document.getElementById("EstudiarSeccion").remove();
   }
 
+  if (!repetirPreguntasNoConocidas) {
+    document.getElementById("aprendida").innerText = "Aprendida";
+    document.getElementById("noAprendida").innerText = "No Aprendida";
+  }
+
   if (cardDataActual.id !== id) {
     contadorEnSerie = 0;
   }
-  let cardData = flashcards.find((cardData) => cardData.id === id);
+
+  let cardData = [];
+  let pregunta = "";
+  let respuesta = "";
+  let cantidadPreguntas = 0;
+
+  if (repetirPreguntasNoConocidas) {
+    cardData = preguntasNoConocidas;
+    pregunta = cardData[contadorEnSerie].pregunta;
+    respuesta = cardData[contadorEnSerie].respuesta;
+    cantidadPreguntas = cardData.length;
+  } else {
+    cardData = flashcards.find((cardData) => cardData.id === id);
+    cardDataActual = cardData;
+    pregunta = cardData.preguntas[contadorEnSerie].pregunta;
+    respuesta = cardData.preguntas[contadorEnSerie].respuesta;
+    cantidadPreguntas = cardData.preguntas.length;
+  }
+
   let cardEstudiar = `<div class="card-wrapperEstudiar" id="EstudiarSeccion">
           <div class="card-body">
             <div class="card-front">
-              <p id="pregunta">${cardData.preguntas[contadorEnSerie].pregunta}</p>
+              <p id="pregunta">${pregunta}</p>
               <p></p>
             </div>
 
             <div class="card-back">
-              <p id="respuesta">${cardData.preguntas[contadorEnSerie].respuesta}</p>
+              <p id="respuesta">${respuesta}</p>
             </div>
           </div>
         </div>
@@ -203,18 +223,18 @@ function mostrarPanelEstudiar(id) {
       .insertAdjacentHTML("afterbegin", cardEstudiar);
     viewPanelEstudiar = true;
   } else if (viewPanelEstudiar) {
-    document.getElementById("pregunta").innerHTML =
-      cardData.preguntas[contadorEnSerie].pregunta;
-    document.getElementById("respuesta").innerHTML =
-      cardData.preguntas[contadorEnSerie].respuesta;
+    document.getElementById("pregunta").innerHTML = pregunta;
+
+    document.getElementById("respuesta").innerHTML = respuesta;
   }
 
   document.getElementById("preguntasSeguimiento").innerText = ` ${
     contadorEnSerie + 1
-  } / ${cardData.preguntas.length} `;
+  } / ${cantidadPreguntas} `;
 
   document.getElementById("EstudiarFlashcard").style.display = "block";
-  return (cardDataActual = cardData);
+
+  return cardDataActual;
 }
 
 // Funcionalidad del menu para reestudiar preguntas NoConocidas
@@ -237,7 +257,27 @@ let cardBottons = `
 
 // ARREGLAR QUE LA ULTIMA PREGUNTA NO SE GUARDA EN EL PUSH AL DARLE NO CONOCIDA
 function PreguntaEstado(estado) {
-  if (contadorEnSerie < cardDataActual.preguntas.length - 1) {
+  if (
+    repetirPreguntasNoConocidas &&
+    contadorEnSerie < preguntasNoConocidas.length
+  ) {
+    if (estado && contadorEnSerie < preguntasNoConocidas.length - 1) {
+      contadorEnSerie += 1;
+      mostrarPanelEstudiar(cardDataActual.id);
+    } else if (
+      !estado &&
+      contadorEnSerie > 0 &&
+      preguntasNoConocidas.length - 1
+    ) {
+      contadorEnSerie -= 1;
+      mostrarPanelEstudiar(cardDataActual.id);
+    } else {
+      cartasRepetidasLeidas();
+    }
+  } else if (
+    !repetirPreguntasNoConocidas &&
+    contadorEnSerie < cardDataActual.preguntas.length - 1
+  ) {
     if (estado) {
       preguntasConocidas.push(cardDataActual.preguntas[contadorEnSerie]);
     } else if (!estado) {
@@ -246,23 +286,39 @@ function PreguntaEstado(estado) {
     contadorEnSerie += 1;
     mostrarPanelEstudiar(cardDataActual.id);
   } else {
-    console.log("Se han leido todas las cartas");
-    console.log(preguntasNoConocidas);
-    document.getElementById("EstudiarSeccion").innerHTML = cardBottons;
-    viewPanelEstudiar = false;
+    cartasRepetidasLeidas();
   }
+}
+
+function cartasRepetidasLeidas() {
+  console.log("Se han leido todas las cartas");
+  console.log(preguntasNoConocidas);
+  document.getElementById("EstudiarSeccion").innerHTML = cardBottons;
+  viewPanelEstudiar = false;
 }
 
 //Funcionalidad Repetir Todas
 function repetirTodas() {
   contadorEnSerie = 0;
+  repetirPreguntasNoConocidas = false;
+  preguntasConocidas = [];
+  preguntasNoConocidas = [];
   mostrarPanelEstudiar(cardDataActual.id);
 }
 
 //Funcionalidad Repetir no conocidas
 function repetirNoConocidas() {
-  console.log(preguntasNoConocidas);
-  mostrarPanelEstudiar(cardDataActual.id);/
+  document.getElementById("noAprendida").innerText = "Anterior";
+  document.getElementById("aprendida").innerText = "Siguiente";
+
+  if (preguntasNoConocidas.length) {
+    contadorEnSerie = 0;
+    console.log(preguntasNoConocidas);
+    repetirPreguntasNoConocidas = true;
+    mostrarPanelEstudiar(cardDataActual.id);
+  }
+
+  console.log("Todas las preguntas son conocidas");
 }
 
 // refrescar la pagina al hacer click en el logo
@@ -271,5 +327,9 @@ function reload() {
 }
 
 // ------------------- editar cartas------------------- //
+// Crear view editar cartas
+//editar cartas
 
+let cardEditarView = ``;
 // ------------------- Eliminar cartas------------------- //
+// Poder eliminar carta desde la view editar cartas

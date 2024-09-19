@@ -25,11 +25,17 @@
         <div id="MenuFlashcards">
           <ul>
             <li>
-              <a href="#" onclick="PreguntaEstado(false)">No aprendida</a>
+              <a href="#" id="noAprendida" onclick="PreguntaEstado(false)"
+                >No aprendida</a
+              >
             </li>
             <li><a href="#" id="preguntasSeguimiento"></a></li>
             <li><a href="#" id="Shuffle" onclick="Shuffle()">Shuffle</a></li>
-            <li><a href="#" onclick="PreguntaEstado(true)">Aprendida</a></li>
+            <li>
+              <a href="#" id="aprendida" onclick="PreguntaEstado(true)"
+                >Aprendida</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -86,6 +92,32 @@
           </button>
         </form>
       </div>
+
+      <!-- <div id="editarPreguntas">
+        <br /><br /><br />
+        <button>Eliminar Set</button>
+        <br /><br /><br />
+        <fieldset id="presentacion">
+          <label for="tituloTxt"> Titulo Flashcard</label><br />
+          <input type="text" id="tituloTxt" maxlength="64" /><br /><br />
+
+          <label for="descripcionTxt" maxlength="100">Descripcion</label><br />
+          <input type="text" name="descripcionTxt" id="descripcionTxt" />
+          <br /><br />
+        </fieldset>
+
+        <fieldset id="preguntas">
+          <legend>Preguntas</legend>
+          <label for="preguntaTxt1"> Pregunta #1</label>
+          <input type="text" name="preguntaTxt1" id="preguntaTxt1" />
+          <br />
+          <label for="respuestaTxt1">Respuesta</label>
+          <textarea name="respuestaTxt1" id="respuestaTxt1"></textarea>
+          <br /><br />
+          <hr />
+          <br />
+        </fieldset>
+      </div> -->
     </main>
 
     <script src="script.js"></script>
