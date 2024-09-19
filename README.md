@@ -9,9 +9,4 @@ Para correr:
 
 
 Proyecto pequeño que hice para practciar express, promesas, fetch, y el dom. Aún me falta practicar más.  Tal vez le agregue nuevas funcionalidades. :v
-Xoxo!
-            ♡
-    /)_/)     (\_(\ 
-  (˶• ༝ •)    (• ༝ •˶)
-૮/      |ა  ૮|      \ა
-(        )   (       )
+⊂(・﹏・⊂)
