@@ -1,7 +1,7 @@
 /* WAAAAAAAAARNING CODIGO ESPAGUETTI A CONTINUACION,
     NO ME HAGO RESPONSABLE DE QUE SE TE SALGAN LOS OJOS,
     LOS PROXIMOS SI LOS HARE DE MEJOR MANERA, E INTENTARE APLICAR
-    LOS PRINCIPIOS DE PEOGRAMACION Y BUENAS PRACTICAS, PARA ESO 
+    LOS PRINCIPIOS DE PROGRAMACION Y BUENAS PRACTICAS, PARA ESO 
     ESTAMOS APRENDIENDO. GRACIAS!
 
     me servira esto de recuerdo jajajaj XD
@@ -327,5 +327,9 @@ function reload() {
 }
 
 // ------------------- editar cartas------------------- //
+// Crear view editar cartas
+//editar cartas
 
+let cardEditarView = ``;
 // ------------------- Eliminar cartas------------------- //
+// Poder eliminar carta desde la view editar cartas
